@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gra lab3</title>
+    <style>
+        body {
+            margin: 0px;
+        }
+        .board {
+            height:100vh;
+            min-height: 800px;
+            position: relative;
+            overflow: hidden;
+            background: rgb(0,0,0);
+            background-image: url('images/board-bg.jpg');
+            background-size: cover;
+            background-position: center bottom;
+            cursor: url('images/aim-resized.png') 64 64, auto !important;   
+        }
+        #hearts {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            user-select: none;
+
+        }
+
+        .heart{
+            user-select: none;
+            width: 180px;
+            margin: 10px;
+        }
+        .zombie {
+            width: 200px;
+            height: 312px;  
+            background: url('images/walkingdead.png');
+            animation:
+                walk 0.5s 0s infinite steps(9),
+                move 8s 0s 1 linear both;
+            transform-origin: center bottom;
+            position: absolute;
+            bottom: 20px;
+            left: 200px;
+        }
+
+        @keyframes walk {
+            100% {
+                background-position-x: -1800px;
+            }
+        }
+
+        @keyframes move {
+            0% {
+                left: 100%;
+            }
+            100% {
+                left: -150px;
+            }
+        }
+        .score {
+            position: absolute;
+            right: 80px;
+            top: 30px;
+            font-size: 80px;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            color: white;
+            user-select: none;
+        }
+
+        #startButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="board">
+        <div id="hearts">
+            <img src="images/full_heart.png" alt="Serce" class="heart" id="heart1">
+            <img src="images/full_heart.png" alt="Serce" class="heart" id="heart2">
+            <img src="images/full_heart.png" alt="Serce" class="heart" id="heart3">
+        </div>
+
+        <button id="startButton" onclick="startGame()">Start</button>
+
+        <div class="score">00000</div>
+
+
+    </div>
+
+    <script>
+        const board = document.querySelector(".board");
+        const crosshair = document.querySelector(".crosshair");
+        const scoreEl = document.querySelector(".score");
+        let score = 0;
+        let heartsLeft = 3;
+
+        function updateHearts() {
+            if (heart3.src.includes('full_heart.png')) {
+                heart3.src = 'images/empty_heart.png';
+            } else if (heart2.src.includes('full_heart.png')) {
+                heart2.src = 'images/empty_heart.png';
+            } else {
+                heart1.src = 'images/empty_heart.png';
+            }
+            heartsLeft -= 1;
+        }
+
+        function resetGame() {
+            const zombies = document.querySelectorAll(".zombie");
+            zombies.forEach(zombie => zombie.remove());
+
+            heartsLeft = 3;
+
+            const heart1 = document.getElementById('heart1');
+            const heart2 = document.getElementById('heart2');
+            const heart3 = document.getElementById('heart3');
+
+            heart3.src = 'images/full_heart.png';
+            heart2.src = 'images/full_heart.png';
+            heart1.src = 'images/full_heart.png';    
+            
+            document.getElementById('startButton').style.display = 'block';  
+            clearInterval(gameInterval);
+            
+            score = 0;
+            scoreEl.innerText = score.toString().padStart(5, "0");
+        }
+
+        function startGame() {
+            document.getElementById('startButton').style.display = 'none';  
+            score = 30;
+            scoreEl.innerText = score.toString().padStart(5, "0");
+
+            gameInterval = setInterval(function() {
+                const div = document.createElement("div");
+                div.classList.add("zombie");
+                scoreEl.innerText = score.toString().padStart(5, "0");
+                
+                
+                const min = 10;
+                const max = 220;
+                const position = Math.floor(Math.random()*(max-min+1)+min);
+                div.style.bottom = position + "px";
+
+                div.style.zIndex = max - position;
+
+                
+                {
+                    const min = 2.5;
+                    const max = 6;
+                    const time = Math.floor(Math.random()*(max-min+1)+min); // zombie speed
+                    div.style.animationDuration = `1s, ${time}s`
+                }
+
+                {
+                    const min = 0.5;
+                    const max = 3.5;
+                    const size = Math.floor(Math.random()*(max-min+1)+min);
+                    const scale = 1 + size / 10;
+                    div.style.transform = `scale(${scale})`;
+                }
+
+                const zombies = board.querySelectorAll(".zombie");
+                for (const el of zombies) {
+                    el.offsetLeft = el.offsetLeft;
+                }
+
+                div.addEventListener("animationend", function() {
+                    this.remove();
+                    updateHearts();
+                    setTimeout(function() {
+                        if (heartsLeft <= 0) {
+                            alert('Koniec gry, twój wynik to: ' + score);
+                            resetGame();
+                        }
+                    
+                    }, 100);
+                
+            });
+
+
+            div.addEventListener("mousedown", function(event) {
+                if (score > 0){
+                    event.stopPropagation();
+                    this.remove();
+                    score += 10;
+                    scoreEl.innerText = score.toString().padStart(5, "0");
+                    
+                }
+            })
+
+            
+            board.appendChild(div);
+            }, 800);
+        }
+
+        board.addEventListener("mousedown", function() {
+            const clickedElement = event.target;
+            const startButton = document.getElementById('startButton');
+            
+            if (score > 0 && clickedElement != startButton){
+                score -= 3;
+                score = Math.max(0, score); 
+                scoreEl.innerText = score.toString().padStart(5, "0");
+            }
+        });
+    </script>
+        
+</body>
+</html>

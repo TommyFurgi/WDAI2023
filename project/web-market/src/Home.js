@@ -105,6 +105,7 @@ const Home = ({ username, role, onLogout }) => {
     } catch (error) {
       console.error('Wystąpił błąd podczas usuwania produktu:', error);
     }
+    window.location.reload();
   };
 
   const sortByName = (order) => {
@@ -159,7 +160,7 @@ const Home = ({ username, role, onLogout }) => {
     try {
       
       const response = await fetch(`http://localhost:3002/api/products/${productId}`, {
-        method: 'GET'
+      method: 'GET'
       });
 
     

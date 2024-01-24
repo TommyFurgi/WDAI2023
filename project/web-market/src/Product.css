@@ -14,7 +14,7 @@
   margin: 30px;
   width: 90%;
   height: auto;
-  max-height: 290px;
+  max-height: 350px;
   background-color: rgb(179, 161, 165);
 }
   
@@ -26,12 +26,16 @@
   border-radius: 10px;
 }
 
-.product-textarea {
-  height: 80px;
-  width: 150px;
-  margin: 10px;
-}
 
+.product-textarea-edit input {
+  width: 90%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+.product-textarea-edit select {
+  width: 97%;
+  margin-bottom: 10px;
+}
 
 .product-container button {
   background-color: rgb(204, 201, 207);

@@ -16,7 +16,6 @@ const Login = ({ onLogin, onLogout }) => {
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
   
-    console.log('Login credentials:', username, password);
   
     try {
       const response = await axios.post('http://localhost:3001/api/login', { username, password });
@@ -47,8 +46,8 @@ const Login = ({ onLogin, onLogout }) => {
         </div>
         <div id="outercontainer">
           <div className="container">
-            <h2 id="title">Login</h2>
-            <div className='form'>
+            <h2 style={{ marginBottom: '-20px'}} id="title">Login</h2>
+            <div style={{ marginBottom: '-20px'}} className='form'>
               <div className='form-desc'>
                 <label>Username:</label>
                 <br />
@@ -62,7 +61,7 @@ const Login = ({ onLogin, onLogout }) => {
                 <input type="password" ref={passwordRef} />
               </div>
             </div>
-            {error && <p className="error-message">{error}</p>}
+            {error &&  <p style={{ marginBottom: '-10px'}} className="error-message">{error}</p>}
             <div className="buttonslogin">
               <button onClick={handleLogin} className='login-button'>Login</button>
             </div>

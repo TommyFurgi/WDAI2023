@@ -77,28 +77,16 @@ const Product = ({ product, onEdit, username, role, handleDeleteClick, handleAdd
           <>
             <div className="form">
               <div className="form-desc">
-                <label>Title:</label>
-                <br />
-                <br />
-                <br />
-                <label>Owner:</label>
-                <br />
-                <br />
-                <br />
-                <label>Description:</label>
-                <br />
-                <br />
-                <br />
-                <label>Category:</label>
-                <br />
-                <br />
-                <br />
-                <label>Price:</label>
-                <br />
+                <p style={{ marginTop: '20px' }}>Owner:</p>
+                <p style={{ marginTop: '30px' }}>Title:</p>
+                <p style={{ marginTop: '38px' }}>Description:</p>
+                <p style={{ marginTop: '36px' }}>Category:</p>
+                <p style={{ marginTop: '38px' }}>Price:</p>
               </div>
-              <div>
+              <div className='product-textarea-edit'>
+                <p style={{ marginTop: '20px' }}>{product.owner}</p>
                 <input type="text" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} />
-                <p>{product.owner}</p>
+                
                 <input type="text" value={editedDescription} onChange={(e) => setEditedDescription(e.target.value)} />
                 <br />
                 <select name="category" value={editedCategory} onChange={(e) => setEditedCategory(e.target.value)}>
@@ -111,8 +99,8 @@ const Product = ({ product, onEdit, username, role, handleDeleteClick, handleAdd
                 <input type="number" value={editedPrice} onChange={(e) => setEditedPrice(e.target.value)} />
               </div>
             </div>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <button onClick={handleSaveClick}>Save</button>
+            {error && <p style={{ color: 'red', marginBottom: '-15px' }}>{error}</p>}
+            <button style={{ marginTop: '30px' }} onClick={handleSaveClick}>Save</button>
             <button onClick={handleCancelClick}>Cancel</button>
           </>
         ) : (

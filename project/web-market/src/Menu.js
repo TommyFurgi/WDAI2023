@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Menu = ({ username, onLogout, searchInput, handleChange, sortByName, resetFilters, categoryFilter, filterByCategory, dispayCart, clearCart, displayYourProducts }) => {
+const Menu = ({ username, onLogout, searchInput, handleChange, sortByName, resetFilters, categoryFilter, filterByCategory, dispayCart, clearCart, displayYourProducts }) => {  
   return (
     <nav>
       <ul>
         {username !== null && <h3>Logged as: {username}</h3>}
         <li>
-          <Link to="/" onClick={resetFilters}>Product List</Link>
+        <Link to="/" onClick={resetFilters}>Product List</Link>
         </li>
         <li>
           <Link to="/AddProduct">Add Product</Link>

@@ -31,7 +31,6 @@ const App = () => {
   };
 
   const handleLogin = (token, username, role) => {
-    console.log('Zalogowano:', token, username, role);
     setAuthToken(token);
     setUsername(username);
     setRole(role);
@@ -54,8 +53,6 @@ const App = () => {
       <div>
         <Routes>
           <Route path="/AddProduct" element={isUserLoggedIn ? <AddProduct onAddProduct={addProductToDatabase} username={username} onLogout={handleLogout} /> : <Navigate to="/" />}/>
-          {/* <Route path="/" element={isUserLoggedIn ? <Home username={username} role={role} onLogout={handleLogout}/> : <Navigate to="/login" /> } /> */}
-          {/* <Route path="/login" element={isUserLoggedIn ? <Login onLogin={handleLogin} onLogout={handleLogout}/> : <Navigate to="/" />} /> */}
           <Route path="/" element={<Home username={username} role={role} onLogout={handleLogout}/>} />
           <Route path="/login" element={!isUserLoggedIn ? <Login onLogin={handleLogin} onLogout={handleLogout}/> : <Navigate to="/" />} />
         </Routes>

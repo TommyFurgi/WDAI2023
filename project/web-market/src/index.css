@@ -12,9 +12,7 @@ body {
     width: 15px;
   }
   
-
-   
-  /* Handle */
+  
   ::-webkit-scrollbar-thumb {
     background: rgb(207, 199, 199); 
     border-radius: 10px;
